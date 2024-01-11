@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>당신은 탈모일까요?</title>
+
+  <!-- slider stylesheet -->
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="static/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="static/css/responsive.css" rel="stylesheet" />
+    <style>
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .loading-icon {
+          border: 4px solid rgba(0, 0, 0, 0.1);
+          border-top: 4px solid #3498db;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          animation: rotate 1s linear infinite;
+          display: inline-block;
+          margin-left: 5px;
+      }
+      .btntd{
+      display: flex;
+      }
+
+      p{
+      color: black;
+      }
+
+      .hero_area {
+      height: 100vh;
+      background-color: #b5caee;
+      background-image: url(static/images/bye.jpg);
+      background-size: cover;
+      }
+
+      .upload {
+      margin-bottom: 40px;
+      }
+
+      #openModal{
+      margin-bottom: 40px;
+      cursor: pointer;
+      }
+
+
+
+    /* 닫기 버튼 */
+
+    #closeModal{
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 10%;
+      color: #00f;
+      font-size:18px;
+      cursor: pointer;
+    }
+
+          /* 모달 스타일 */
+    .modal {
+      position: fixed;
+      z-index: 1000; /* Sit on top */
+      padding: 10px 10px 10px 10px; /* Location of the box */
+      left: 30%;
+      top: 10%;
+      width: 550px;
+      height: 560px;
+      overflow: visible;
+      background-color: #fff;
+    }
+
+    /* 배경 오버레이 스타일 */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      }
+    /* 사진 업로드 버튼 */
+    .btn-upload {
+      width: 120px;
+      height: 50px;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      border-radius: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      &:hover {
+        background: rgb(33,33,33);
+        color: #fff;
+      }
+    }
+
+    #img {
+      display: none;
+    }
+
+     .btn-submit {
+      width: 120px;
+      height: 50px;
+      background: #fff;
+      border: 1px solid rgb(77,77,77);
+      border-radius: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      &:hover {
+        background: rgb(33,33,33);
+        color: #fff;
+      }
+    }
+
+    #upform {
+    display: flex;
+    }
+
+    .detail-box br{
+    display: none;
+    }
+
+    .popupimg{
+    width: 520;
+    height: 550;
+    }
+
+    .examimg{
+    width: 520px;
+    height: 400px;
+    }
+
+    .modaltext{
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 2px;
+    }
+
+    .maintext{
+    font-size: 90px;
+    color: #fff;
+    }
+
+    .subtext{
+    font-size: 45px;
+    color: #fff;
+    }
+
+    .subtext br{
+    display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      .btn-upload{
+        margin-top: 35px;
+        width: 90px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid rgb(77,77,77);
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        &:hover {
+          background: rgb(33,33,33);
+          color: #fff;
+        }
+      }
+      .btn-submit{
+        margin-top: 35px;
+        width: 90px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid rgb(77,77,77);
+        border-radius: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        &:hover {
+          background: rgb(33,33,33);
+          color: #fff;
+        }
+      }
+      .detail-box br{
+        display: inline;
+      }
+
+      .modal{
+      width: 350px;
+      height: 420px;
+      top: 10%;
+      left: 10%;
+      position: fixed;
+
+      }
+
+      .modaltext{
+      font-size: 18px;
+      }
+
+      .examimg{
+      width: 300px;
+      height: 250px;
+      }
+
+    .maintext{
+    font-size: 45px;
+    }
+
+    .subtext{
+    font-size: 23px;
+    }
+
+    .subtext br{
+    display: inline;
+    }
+
+  }
+
+    </style>
+</head>
+
+<body>
+  <div class="hero_area">
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="detail-box">
+              <div class="mainpage"><br><br><br><br><br>
+                <p class="maintext">
+                  당신은 탈모일까요?
+                </p>
+
+                <p class="subtext">
+                  사진을 업로드해 탈모를 진단해보세요!
+                </p><br>
+
+                <form id="upform" action="upform" method="post" enctype="multipart/form-data" onsubmit="showLoadingMessage()">
+                  <table align="center">
+                    <td>
+                      <label for="gender">성별 :</label>
+                      <select id="gender" name="gender">
+                        <option value="남">남자</option>
+                        <option value="여">여자</option>
+                        <!-- 다른 옵션들을 필요에 따라 추가할 수 있습니다. -->
+                      </select>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <label for="age">연령 : </label>
+                      <select id="age" name="age">
+                        <option value="10대">10대</option>
+                        <option value="20대">20대</option>
+                        <option value="30대">30대</option>
+                        <option value="40대">40대</option>
+                        <option value="50대">50대</option>
+                        <option value="60대">60대</option>
+                        <option value="70대">70대</option>
+                        <option value="80대">80대</option>
+                        <option value="90대">90대</option>
+                        <option value="100대">100대 이상</option>
+                      </select>
+                    </td>
+<!--                  <td>
+                    <div class="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a class="upload" href="{% url 'result' %}">
+                        사진 업로드
+                      </a>
+                    </div>
+                  </td>-->
+                    <td width="300" class="btntd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                      {% csrf_token %}
+                      <label for="img">
+                        <div class="btn-upload" style="height: 40px;">사진 선택</div>
+                      </label>
+                      <input type="file" accept="image/*" name="img" id="img">&nbsp;&nbsp;&nbsp;
+                      <button class="btn-submit" type="submit" style="height: 40px;">진단하기</button>
+
+                    </td>
+                  </table>
+                </form>
+                <div id="loadingMessage" style="display:none;">로딩중입니다. 잠시만 기다려주세요. <span class="loading-icon"></span></div>
+
+                <script>
+                    function showLoadingMessage() {
+                        document.getElementById('loadingMessage').style.display = 'block';
+                    }
+                </script>
+                <div>
+<!--                  -->
+                  <!-- 모달 내용 -->
+                  <div id ="myModal" class="modal">
+                    <img class="examimg" src="/static/images/exampleimage.jpg">
+                    <p class="modaltext">정수리 또는 의심되는 부위를<br><br><br><br><br><br><br><br><br><br><br><br><br><br> 가운데에 오게 하고</p>
+                    <p class="modaltext">최대한 근접해서 촬영해주세요.</p>
+                    <span id="closeModal">[닫기]</span>
+                  </div>
+
+                  <!-- 배경 오버레이 -->
+                  <div id="overlay" class="overlay"></div>
+
+                  <!-- 텍스트 링크 --><br><br>
+                  <span href="#" id="openModal" style="font-size: 30px;">사진 찍는 방법</span>
+                  <!--                  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+  <script>
+  document.getElementById('openModal').addEventListener('click', function() {
+    document.getElementById('myModal').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+  });
+
+  document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('myModal').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+  });
+</script>
+
+
+  <!-- footer section -->
+  <script type="text/javascript" src="static/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="static/js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- owl carousel script 
+    -->
+  <script type="text/javascript">
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 0,
+      navText: [],
+      center: true,
+      autoplay: true,
+      autoplayHoverPause: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        1000: {
+          items: 3
+        }
+      }
+    });
+  </script>
+
+
+  <!-- end owl carousel script -->
+
+</body>
+
+</html>

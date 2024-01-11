@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>당신은 탈모일까요?</title>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!--toggle JQuery-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/result.css" rel="stylesheet" />
+        <style>
+            .golink{
+            text-align: center;
+            }
+
+            .hbr br{
+            display: none;
+            }
+
+            .graphdiv{
+            height: auto;
+            align: center;
+            }
+
+            .bar-container {
+            text-align: left;
+            margin-right: 30%;
+            width: 40%;
+            background-color: #ddd;
+            border: 1px solid #aaa;
+            }
+
+
+            .bar {
+                height: 30px;
+                text-align: right;
+                line-height: 30px;
+                color: black;
+            }
+
+            .grap{
+            width: 70%;
+            align: center;
+            }
+
+            #addressInput{
+            width: 45%;
+            }
+
+            .mapdiv{
+            text-align: center;
+            }
+
+            .mapdiv br{
+            display: none;
+            }
+
+            .map{
+            width: 60%;
+            height: 600px;
+            }
+
+            .resultgraph{
+            display: flex;
+            margin-left: 25%;
+            text-align: center;
+            }
+
+            .graphname{
+            margin-left: 17%;
+            text-align: left;
+            }
+
+            .resulttext{
+            font-weight: bold;
+            text-align: center;
+            width: 200px;
+            }
+
+            .graphdiv{
+            display: none;
+            }
+
+            #toggle{
+            margin-left: 40%;
+            border: 2px solid #ddd;
+            }
+
+            .tit{
+            font-size: 60px;
+            color: #264653;
+            font-weight: bold;
+            }
+
+            .careimgdiv{
+            display: flex;
+            justify-content: center;
+            }
+
+            .careimgdiv img{
+            width: 750px;
+            height: auto;
+            }
+
+            .restable{
+            border-radius: 30px;
+            border-collapse: separate;
+            }
+
+            .restable td{
+            border: 2px solid rgba(166, 166, 166, 1);
+            padding: 25px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            text-align: center;
+
+            }
+
+            @media screen and (max-width: 700px) {
+                .hbr br{
+                display: inline;
+                }
+
+                .mapdiv br{
+                display: inline;
+                }
+
+                .map{
+                width: 80%;
+                height: 280px;
+                }
+
+                .resultgraph{
+                margin-left: 20%;
+                }
+
+                .bar-container{
+                width: 70%;
+                }
+
+                .graphname{
+                font-size: 20px;
+                margin-left: 18%;
+                }
+
+                #toggle{
+                margin-left: 27%;
+                }
+
+                .tit{
+                font-size:42px;
+                }
+
+                .careimgdiv img{
+                max-width: 90%;
+                }
+
+            }
+        }
+
+
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">당신은 탈모일까요?</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    이동
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#graph">통계</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#item">관련상품</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#navi">근처 병원 찾기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- 분석결과 그래프-->
+        <header class="masthead bg-white text-black text-center">
+            <h1 class="tit" align="center">두피사진 분석 그래프</h1><br><br>
+            <div class="container" align="center">
+                {%for i, j, k in resultzip %}
+                <div class="resultgraph">
+                    <div class="resulttext">{{j}}</div>&nbsp&nbsp
+                        <div class="bar-container">
+                            <div class="bar" style="width: {{ i }}%; background-color: {{ k }};">{{ i }}%</div>
+                    </div>
+                </div><br>
+                {%endfor%}
+            </div>
+        </header>
+            <!--분석결과 텍스트-->
+            <div class="container d-flex align-items-center flex-column">
+                {% if headskin != 1 %}
+                <br><h1 class="tit">진단 결과</h1><br><br>
+                <table class="restable">
+                    <tr>
+                        <td>
+                            <h1 class="hbr">
+                                당신은 <br>'{{headskin}}' 두피이며,</h1><br>
+                            <h1 class="hbr">진행도는 <br>'{{predresult}}' 입니다.
+                            </h1>
+                        </td>
+                    </tr>
+                </table>
+                {% endif %}
+                {% if headskin == 1 %}
+                <h1 class="hbr" style="font-color: black;">
+                    진단 결과 <br>당신의 두피 상태는 <br>양호하며,</h1><br><br>
+                <h1 class="hbr">탈모 진행도는 <br>정상 입니다.
+                </h1>
+                {% endif %}
+            </div>
+        <br><br><br><br><br><br>
+        <div>
+            <h1 class="tit" align="center">{{headskin}}두피 특징/관리법</h1><br><br>
+            <div class="careimgdiv">
+            <img src="static/care/{{headskin}}.png" align="center">
+            </div>
+            <br><br>
+        </div>
+
+        <hr>
+        <!-- 통계 Section-->
+        <section id="graph" >
+            <div class="container" style="width: 100%; height: 800px;">
+
+                <div class="container" style="width: 100%; height: 450px;">
+                    <!-- 통계 헤드라인 텍스트--><br><br><br>
+                    <h1 class="tit" align="center">통계</h1><br><br>
+                    <!-- Portfolio Grid Items-->
+                    <h2 class="hbr" align="center"> {{age}} {{gender}}성들의 <br>증상별 통계그래프를 보여드립니다. </h2><br><br>
+                        <!--그래프 시작-->
+
+                    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+                        <tableau-viz id="tableauViz"
+                          src='https://public.tableau.com/views/_17044300104760/1_2?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link'
+                          toolbar="bottom" hide-tabs align>
+                          <viz-filter field="gender" value="{{ gender }}"> </viz-filter>
+                          <viz-filter field="age" value="{{ age }}"> </viz-filter>
+                        </tableau-viz>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <!-- 상품추천 Section-->
+        <section class="page-section bg-white text-black mb-0" id="item">
+            <div class="container">
+                <!-- About Section Heading-->
+                <h1 class="tit" align="center">관련 상품</h1><br><br><br>
+                <!--상품 추천 이미지-->
+                <div class="row" style="text-align: center;">
+                    {% for i in result %}
+                        <div class="col-md-3">
+                            <p align="center"><img src='./static/items/{{ i.image }}' width="200px" height="200px" align="center"><br>이름: {{ i.name }}</p><p>가격: {{ i.price }}</p><br><br>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- About Section Button-->
+                <div class="text-center mt-4">
+                    <a class="btn btn-xl btn-outline-black text-black" style="border: 2px solid #ddd;"
+                       href = "https://www.oliveyoung.co.kr/store/search/getSearchMain.do?startCount=48&sort=RANK%2FDESC&goods_sort
+                       =WEIGHT%2FDESC%2CRANK%2FDESC&collection=ALL&realQuery={{skintype}}&reQuery=&viewtype=image&category=
+                       &catename=LCTG_ID&catedepth=1&rt=&setMinPrice=&setMaxPrice=&listnum=48&tmp_requery=
+                       &tmp_requery2=&categoryDepthValue=&cateId=&cateId2=&BenefitAll_CHECK=&query={{skintype}}
+                       &selectCateNm=%EC%A0%84%EC%B2%B4&firstTotalCount=100&typeChk=list&branChk=&brandTop=
+                       &attrChk=&attrTop=&onlyOneBrand=&quickYn=N&cateChk=&benefitChk=&attrCheck0=&attrCheck1=
+                       &attrCheck2=&attrCheck3=&attrCheck4=&brandChkList=&benefitChkList=&_displayImgUploadUrl=
+                       https%3A%2F%2Fimage.oliveyoung.co.kr%2Fuploads%2Fimages%2Fdisplay%2F&recobellMbrNo=null&recobellCuid=
+                       8b47cf9f-efd1-48e4-8f83-10ee8a07945b&t_page=&t_click=&t_search_name=&sale_below_price=&sale_over_price=" target = _blank>
+                        <!--<i class="fas fa-download me-2">클래스 지우기</i>-->
+                        관련상품 더 보기
+                    </a>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <!-- 지도 Section-->
+        <section class="page-section" id="navi">
+            <div class="container">
+                <!-- 지도 문구-->
+                <h1 class="tit" align="center">근처 병원 찾기</h1>
+                <br><br>
+                <div class="mapdiv">
+                <h4>현재 위치를 입력해 <br>근처 병원을 검색해보세요!</h4>
+                </div><br>
+                <!--지도 검색창-->
+                <div align="center">
+                    <a style="margin-top:-12px">
+                        <input type="text" id="addressInput" placeholder="검색할 주소를 입력하세요">
+                        <button onclick="Address()">주소 검색</button>
+                    </a>
+                    <!--지도--><br><br>
+                    <div class="map" id="map" style="text-align:center;"></div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <h5 style="color: white; font-size: 20px;">테스트일 뿐이니 정확한 진단은 피부과를 방문하세요!</h5>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d0efdcf53c0d2b55350894d3a6a42e14&libraries=services,clusterer"></script>
+
+        <!--그래프 토글 스크립트-->
+        <script>
+          $(document).ready(function(){
+            $("#toggle").click(function(){
+              $("#graphdiv").toggle(); // 토글
+            });
+          });
+        </script>
+
+
+        <!--지도 스크립트-->
+        <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        function Address(){
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+
+            // 입력상자에서 주소 가져오기
+            var address = document.getElementById('addressInput').value;
+
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch(address, function(result, status){
+
+                // 정상적으로 검색이 완료됐으면 ('===' 완벽히 일치되었을 때)
+                // =, ==, ===
+                 if (status == kakao.maps.services.Status.OK) {
+                    // 이동할 경도 위치 설정
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 검색한 장소를 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:100px; height:50px; padding:5px;">내 위치</div>'
+                    });
+                    infowindow.open(map, marker);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                }
+            });
+        }
+
+        function display(data){
+            // 데이터 수가 맞게 들어왔는지 확인
+            // alert('데이터수 : ' + data.positions.length);
+            // document.write(data.positions[99].lat)
+
+
+            // 마커 클러스터러를 생성합니다
+            var clusterer = new kakao.maps.MarkerClusterer({
+              map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+              averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+              minLevel: 6 // 클러스터 할 최소 지도 레벨
+                });
+            var markers = $(data.positions).map(function(i, position) {
+              var marker =  new kakao.maps.Marker({
+                  position : new kakao.maps.LatLng(position.lat, position.lng),
+                  clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+                        });
+
+            // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+            var iwContent = '<div style="padding:5px;">' +
+            position.name + '<br>' +
+            '<a href="https://map.kakao.com/link/to/' + position.name + ',' + position.lat + ',' + position.lng +'" style="color:blue" target="_blank">길찾기</a>'+ '<br>' +
+            position.add + '</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
+
+            // 마커에 클릭이벤트를 등록합니다
+            kakao.maps.event.addListener(marker, 'click', function() {
+                  // 마커 위에 인포윈도우를 표시합니다
+                  infowindow.open(map, marker);
+            });
+            return marker;
+            });
+            // 클러스터러에 마커들을 추가합니다
+            clusterer.addMarkers(markers);
+        }
+
+          function getdata(){
+            $.ajax({
+              url:'mapmarker',
+              dataType:'JSON',
+              success:function(data){
+                display(data);
+              }
+            })
+        }
+        $(document).ready(function(){
+            getdata();
+        });
+
+        </script>
+
+
+
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/js/result.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+    </body>
+</html>
